@@ -12,7 +12,18 @@
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
 
 </head>
-
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navigation</a>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/djangoapp">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/djangoapp/about">About</a>
+        </li>
+  </nav>
     <body>
     <!-- Remove this line the first time you edit this file -->
      This is the index page of your Django app!
@@ -21,5 +32,41 @@
     <!--Add a dealer table here -->
 
     </body>
+    <footer class="text-center text-lg-start bg-light text-muted" style="position: absolute;width: 100vw;margin-top: 80vh;">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Useful links
+          </h6>
+          <p>
+            <a href="/djangoapp" class="text-reset">Home</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">Here you can contact us</h6>
+          <p>
+              <a href="/djangoapp/contact" class="text-reset">Contact page</a>
+            </p>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+
+  <!-- Copyright -->
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2023 Copyright:
+    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">Jonas Keller</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
 
 </html>
