@@ -1,3 +1,4 @@
+[![Lint Code](https://github.com/KeJo2014/agfzb-CloudAppDevelopment_Capstone/actions/workflows/linter.yml/badge.svg)](https://github.com/KeJo2014/agfzb-CloudAppDevelopment_Capstone/actions/workflows/linter.yml)
 # Final Project Template
 
 The final project for this course has several steps that you must complete. 
