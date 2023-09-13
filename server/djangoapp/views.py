@@ -92,7 +92,7 @@ def signup_request(request):
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
 def get_dealer_details(request, dealer_id):
-    return HttpResponse(get_dealer_reviews_from_cf("",""))
+    return HttpResponse(get_dealer_reviews_from_cf("https://eu-de.functions.appdomain.cloud/api/v1/web/a91d51c2-f0b9-497c-9eb3-797e65bafb41/dealership-package/review",dealer_id))
 
 def add_review(request, dealer_id):
     if(request.user.is_authenticated):
@@ -101,4 +101,4 @@ def add_review(request, dealer_id):
         review["review"] = "This is a great car dealer"
 
         json_payload["payload"] = review
-        post_request("", json_payload, 11)
+        return HttpResponse(post_request("https://eu-de.functions.appdomain.cloud/api/v1/web/a91d51c2-f0b9-497c-9eb3-797e65bafb41/dealership-package/review", json_payload, dealer_id))
