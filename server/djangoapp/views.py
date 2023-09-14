@@ -95,10 +95,17 @@ def get_dealer_details(request, dealer_id):
     return HttpResponse(get_dealer_reviews_from_cf("https://eu-de.functions.appdomain.cloud/api/v1/web/a91d51c2-f0b9-497c-9eb3-797e65bafb41/dealership-package/review",dealer_id))
 
 def add_review(request, dealer_id):
-    if(request.user.is_authenticated):
-        review["time"] = datetime.utcnow().isoformat()
-        review["dealership"] = 11
-        review["review"] = "This is a great car dealer"
+    # if(!request.user.is_authenticated):
+    review = {}
+    review["time"] = datetime.utcnow().isoformat()
+    review["dealership"] = 11
+    review["review"] = "This is a great car dealer"
+    review["name"] = "Jonas"
+    review["purchase"] = True
+    review["car_make"] = "Audi"
+    review["car_model"] = "A6"
+    review["car_year"] = "2010"
 
-        json_payload["payload"] = review
-        return HttpResponse(post_request("https://eu-de.functions.appdomain.cloud/api/v1/web/a91d51c2-f0b9-497c-9eb3-797e65bafb41/dealership-package/review", json_payload, dealer_id))
+    json_payload = {}
+    json_payload["payload"] = review
+    return HttpResponse(post_request("https://eu-de.functions.appdomain.cloud/api/v1/web/a91d51c2-f0b9-497c-9eb3-797e65bafb41/dealership-package/review", json_payload))

@@ -67,10 +67,6 @@ def get_dealer_reviews_from_cf(url, dealer_id, **kwargs):
         results.append(review_obj)
     return results
 
-def post_request(url, json_payload, **kwargs):
-    requests.post(url, params=kwargs, json=json_payload)
-    return "RESPONSE"
-
 # Create an `analyze_review_sentiments` method to call Watson NLU and analyze text
 def analyze_review_sentiments(text_to_analyse):
     url = 'https://sn-watson-sentiment-bert.labs.skills.network/v1/watson.runtime.nlp.v1/NlpService/SentimentPredict'
@@ -88,4 +84,7 @@ def analyze_review_sentiments(text_to_analyse):
     except:
         return "error"
 
-
+def post_request(url, json_payload, **kwargs):
+    print(json_payload)
+    response = requests.post(url+'?review='+json.dumps(json_payload), params=kwargs, json=json_payload)
+    return response.text
