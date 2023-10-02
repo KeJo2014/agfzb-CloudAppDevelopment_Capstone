@@ -39,7 +39,11 @@
             </div>
           </nav>
         <main class="container" style="padding: 3%;">
-            <h2>Reviews for TEST</h2>
+            <h2>Reviews for {{dealer.full_name}}</h2>
+            <a style="position: absolute;right: 5vw;top: 10vh;display: grid;" href="{% url 'djangoapp:add_review' dealer_id %}"> 
+                <img src="{{MEDIA_URL}}/comment.png" class="card-img-center" style="width: 50px;marign: auto;" />
+                <label for="img">Jetzt auch Feedback geben!</label>
+            </a>
             <div class="card-columns">
                 {% for review in reviews %}
                 {{ review.full_name }}
@@ -55,7 +59,7 @@
             </div>
         </main>
     </body>
-    <footer class="footer" style="margin-top: 7%;">
+    <footer class="footer" style="position: absolute;width: 100vw;bottom: 0;">
         <div class="container">
          <div class="row">
            <div class="footer-col">

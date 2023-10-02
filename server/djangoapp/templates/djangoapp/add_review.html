@@ -12,8 +12,38 @@
 </head>
 
     <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Dealership Review</a>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="/djangoapp">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/djangoapp/about">About</a>
+                </li>
+              </ul>
+              {% if user.is_authenticated %}
+              <div style="display: flex;gap: 20px;">
+                <p>({{user.username}})</p>
+                <a href="{% url 'djangoapp:logout' %}">Logout</a>
+              </div>
+              {% else %}
+              <div style="display: flex;gap: 30px;">
+                <form action="{% url 'djangoapp:login' %}" method="post">
+                  {% csrf_token %}
+                  <input type="text" name="username" placeholder="username">
+                  <input type="password" name="password" placeholder="password">
+                  <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+                <a href="/djangoapp/signup">Sign Up</a>
+              </div>
+              {% endif %}
+            </div>
+          </nav>
     <!--Add review form here -->
-    <h2>Add a review for TEST</h2>
+    <h2 style="margin-top: 10px;">Add a review for {{dealer.full_name}}</h2>
     {% for dealer in dealers %}
         <form action="/djangoapp/dealer/add_review/{{dealer.id}}/" method="post">
             {% csrf_token %}
@@ -41,7 +71,7 @@
            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </body>
-    <footer class="footer" style="margin-top: 7%;">
+    <footer class="footer" style="position: absolute;width: 100vw;bottom: 0;">
         <div class="container">
          <div class="row">
            <div class="footer-col">

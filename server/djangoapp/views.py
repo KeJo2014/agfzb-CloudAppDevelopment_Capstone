@@ -90,8 +90,9 @@ def signup_request(request):
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
 def get_dealer_details(request, dealer_id):
-    context = {"reviews": get_dealer_reviews_from_cf("https://eu-de.functions.appdomain.cloud/api/v1/web/a91d51c2-f0b9-497c-9eb3-797e65bafb41/dealership-package/review",dealer_id)}
-    print(context)
+    context = {"reviews": get_dealer_reviews_from_cf("https://eu-de.functions.appdomain.cloud/api/v1/web/a91d51c2-f0b9-497c-9eb3-797e65bafb41/dealership-package/review", dealer_id)}
+    context["dealer_id"] = dealer_id
+    context["dealer"] = get_dealers_by_id_from_cf("https://eu-de.functions.appdomain.cloud/api/v1/web/a91d51c2-f0b9-497c-9eb3-797e65bafb41/dealership-package/get-dealership.json", dealer_id)
     return render(request, 'djangoapp/dealer_details.html', context)
 
 def add_review(request, dealer_id):
@@ -103,29 +104,32 @@ def add_review(request, dealer_id):
         context = {
             "cars": models.CarModel.objects.all(),
             "dealers": [get_dealers_by_id_from_cf(url, dealer_id)],
+            "dealer": get_dealers_by_id_from_cf("https://eu-de.functions.appdomain.cloud/api/v1/web/a91d51c2-f0b9-497c-9eb3-797e65bafb41/dealership-package/get-dealership.json", dealer_id)
         }
         return render(request, 'djangoapp/add_review.html', context)
     else:
         if(request.user.is_authenticated):
             form = request.POST
             review = {
-                "name": request.user.first_name+" "+request.user.last_name,
+                "name": request.user.username,
                 "dealership": dealer_id,
                 "review": form["content"],
                 "purchase": form.get("purchasecheck"),
                 }
-            if form.get("purchasecheck"):
-                review["purchase_date"] = datetime.strptime(form.get("purchasedate"), "%m/%d/%Y").isoformat()
-                car = models.CarModel.objects.get(pk=form["car"])
-                review["car_make"] = car.car.name
-                review["car_model"] = car.name
-                review["car_year"]= car.year.strftime("%Y")
-                # json_payload = {"review": review}
-                print(review)
-                json_payload = {}
-                json_payload["payload"] = review
-                post_request("https://eu-de.functions.appdomain.cloud/api/v1/web/a91d51c2-f0b9-497c-9eb3-797e65bafb41/dealership-package/review", json_payload)
-                redirect("djangoapp:dealer_details", dealer_id=dealer_id)
+            review["purchase_date"] = datetime.strptime(form.get("purchasedate"), "%m/%d/%Y").isoformat()
+            car = models.CarModel.objects.get(pk=form["car"])
+            review["car_make"] = car.car.name
+            review["car_model"] = car.name
+            review["car_year"]= car.year.strftime("%Y")
+            # json_payload = {"review": review}
+            print("Create ENTRY")
+            print(review)
+            json_payload = {}
+            json_payload["payload"] = review
+            print(json_payload)
+            post_request("https://eu-de.functions.appdomain.cloud/api/v1/web/a91d51c2-f0b9-497c-9eb3-797e65bafb41/dealership-package/review?review="+ json.dumps(json_payload), json_payload)
+            print("redirecting...")
+            return redirect('djangoapp:dealer_details', dealer_id=dealer_id)
         else:
             return HttpResponse("You have to be signed in to use this feature")
-    return HttpResponse("something went wrong")
+    return HttpResponse("something went wrong") 
