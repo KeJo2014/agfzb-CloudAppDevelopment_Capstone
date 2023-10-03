@@ -26,9 +26,9 @@ SECRET_KEY = 'ao5z(o(z@cvzodm99d32jkxa5e8a1!q_4sqss5-a%n6tg$#h$+'
 DEBUG = True
 
 APPEND_SLASH = True
-
-ALLOWED_HOSTS = ["localhost"]
-
+ALLOWED_HOSTS = ["localhost", 'localhost:8000', 'jonaskeller2-8000.theiadocker-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai']
+CSRF_TRUSTED_ORIGINS = ['jonaskeller2-8000.theiadocker-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai']
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
