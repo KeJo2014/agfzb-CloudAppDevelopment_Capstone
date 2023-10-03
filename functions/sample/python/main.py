@@ -9,7 +9,8 @@ def main(dict):
     service.set_service_url("https://fc2b57ff-6ef4-******************tnosqldb.appdomain.cloud")
     
     try:
-        test = dict["review"]
+        review = dict["review"]
+        print(review)
         request = "post"
     except:
         request = "get"
