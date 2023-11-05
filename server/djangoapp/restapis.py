@@ -102,6 +102,7 @@ def get_dealer_reviews_from_cf(url, dealer_id, **kwargs):
 
 # Create an `analyze_review_sentiments` method to call Watson NLU and analyze text
 def analyze_review_sentiments(text_to_analyse):
+    return "neutral"
     url = 'https://sn-watson-sentiment-bert.labs.skills.network/v1/watson.runtime.nlp.v1/NlpService/SentimentPredict'
     header = {"grpc-metadata-mm-model-id": "sentiment_aggregated-bert-workflow_lang_multi_stock"}
     myobj = { "raw_document": { "text": text_to_analyse } }
@@ -115,7 +116,7 @@ def analyze_review_sentiments(text_to_analyse):
         else:
             return "neutral"
     except:
-        return "error"
+        return "neutral"
 
 def post_request(url, json_payload, **kwargs):
     print(json_payload)
